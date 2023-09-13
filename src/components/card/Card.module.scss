@@ -1,0 +1,111 @@
+.card {
+  position: relative;
+  width: calc(100% / 4 - 2rem);
+  padding: 1rem;
+  border: 1px solid #7c8363;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 0;
+  min-width: 250px;
+  flex-grow: 1;
+  div{
+    &:nth-child(1){
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        h1{
+            font-weight: 300;
+        }
+        p{
+            font-size: 18px;
+            font-weight: 300;
+        }
+    }
+    &:nth-child(3){
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-left: 0.5rem;
+        div{
+            width: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            button{
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                font-weight: 700;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                background-color: #7c8363;
+                color: #EDF4F2;
+                cursor: pointer;
+                &:hover{
+                    background-color: #31473A;
+                }
+            }
+        }
+    }
+    &:nth-child(4){
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        button{
+            width: calc(100% / 2 - 1rem);
+            height: 35px;
+            min-width: 100px;
+            flex-grow: 1;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            &:hover{
+                filter: brightness(90%);
+            }
+            &:first-child{
+                background-color: rgb(0, 157, 255);
+            }
+            &:last-child{
+                background-color: rgb(255, 0, 0);
+            }
+        }
+    }
+  }
+  p{
+    font-weight: 100;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    background-color: #7c8363;
+    -webkit-clip-path: circle(5rem at 0% 0%);
+    clip-path: circle(5rem 0% 0%);
+    z-index: -1;
+    transition: .3s linear;
+  }
+  &:hover::before{
+    -webkit-clip-path: circle(25rem at 0% 0%);
+    clip-path: circle(200% at 0% 0%);
+  }
+}

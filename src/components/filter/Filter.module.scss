@@ -1,0 +1,45 @@
+.filter__wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: .5rem;
+    border-radius: 5px;
+    div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:first-child{
+            .inputGroup{
+                width: 250px;
+                height: 35px;
+                padding-left: 0.5rem;
+                border-radius: 5px;
+                position: relative;
+                input{
+                    width: 100%;
+                    height: 100%;
+                    background-color: transparent;
+                    border: 2px solid #7C8363;
+                    border-radius: 5px;
+                    padding-left: 0.5rem;
+                    color: #EDF4F2;
+                }
+                label{
+                    position: absolute;
+                    font-size: 16px;
+                    background-color: #31473A;
+                    border-radius: 5px;
+                    color: #7C8363;
+                    font-weight: 700;
+                    padding-left: 2px;
+                    padding-right: 2px;
+                    top: -2px;
+                    left: 1rem;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+    }
+}

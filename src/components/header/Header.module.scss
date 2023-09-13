@@ -1,0 +1,77 @@
+header {
+  width: 100%;
+  height: 80px;
+  background-color: #31473a;
+  border-bottom: 1px solid #7c8363;
+  font-family: "Mulish" !important;
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      line-height: 80px;
+      color: #edf4f2;
+      font-weight: 900;
+    }
+    div {
+      display: flex;
+      gap: 0.5rem;
+      button {
+        &:first-child {
+          width: 35px;
+          height: 35px;
+          border-radius: 5px;
+          white-space: nowrap;
+          display: flex;
+          justify-content: end;
+          align-items: center;
+          background-color: #edf4f2;
+          color: #31473a;
+          font-size: 16px;
+          cursor: pointer;
+          overflow: hidden;
+          transition: 0.1s linear;
+          border: 2px solid transparent;
+          @media (max-width: 550px) {
+            width: 135px;
+          }
+          &:hover {
+            width: 135px;
+            background-color: transparent;
+            border-color: #edf4f2;
+            color: #edf4f2;
+          }
+          span {
+            margin-left: 6px;
+            margin-right: 3px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+          }
+        }
+        &:last-child {
+          width: 35px;
+          height: 35px;
+          border-radius: 5px;
+          white-space: nowrap;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #edf4f2;
+          color: #31473a;
+          font-size: 16px;
+          cursor: pointer;
+          border: 2px solid transparent;
+          transition: .1s linear;
+          &:hover{
+            background-color: transparent;
+            border-color: #edf4f2;
+            color: #edf4f2;
+          }
+        }
+      }
+    }
+  }
+}

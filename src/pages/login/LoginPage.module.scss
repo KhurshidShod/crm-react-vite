@@ -1,0 +1,131 @@
+.login {
+  width: 100%;
+  height: 100vh;
+  background-color: #31473a;
+  font-family: "Mulish" !important;
+  color: #edf4f2;
+}
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form {
+  background-color: transparent;
+  border-radius: 15px;
+  width: 500px;
+  min-width: 250px;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 2rem;
+  h1 {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #edf4f2;
+  }
+  .inputGroupHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    p {
+      font-size: 18px;
+      color: #edf4f2;
+      font-weight: 700;
+    }
+  }
+  .inputGroup {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    flex-grow: 1;
+    button {
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      transform: translateY(-50%);
+      top: 50%;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background-color: #31473a;
+      z-index: 2;
+      cursor: pointer;
+      border-top: 3px solid #7c8363;
+      border-bottom: 3px solid #7c8363;
+      border-right: 3px solid #7c8363;
+      border-left: 1px solid #7c8363;
+      font-size: 24px;
+    }
+    label {
+      position: absolute;
+      transform: translateY(-50%);
+      left: 1rem;
+      font-size: 18px;
+      background-color: #31473a;
+      pointer-events: none;
+      padding-left: 5px;
+      padding-right: 5px;
+      transition: top 0.1s linear;
+      color: #7c8363 !important;
+      top: -4px;
+      width: auto;
+      font-weight: 900;
+    }
+    input {
+      width: 100%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      font-size: 16px;
+      font-family: "Mulish";
+      color: #edf4f2;
+      background-color: transparent;
+      border: 3px solid #7c8363;
+      border-radius: 5px;
+      height: 35px;
+    }
+    &:last-child {
+      width: 100%;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      flex-direction: row;
+      button {
+        width: 100%;
+        height: 35px;
+        border-radius: 5px;
+        background-color: #7c8363;
+        color: #edf4f2;
+        font-size: 16px;
+        cursor: pointer;
+        border: 3px solid transparent;
+        font-weight: 900;
+        &:hover {
+          background-color: transparent;
+          // color: #7c8363;
+          border-color: #7c8363;
+          transition: 0.1s linear;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,145 @@
+.formModalWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  font-family: "Mulish" !important;
+  color: #edf4f2;
+  position: fixed;
+  // top: -150%;
+  transform: translate(-50%, -50%) scale(0);
+  top: 50%;
+  left: 50%;
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  transition: 0.15s linear;
+  &.open {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 999999999;
+  }
+  // backdrop-filter: blur(50%);
+  form {
+    background-color: #31473a;
+    border-radius: 15px;
+    max-width: 750px;
+    padding: 2rem;
+    padding-top: 4rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    position: relative;
+    .closeModal{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 32px;
+      width: 35px;
+      height: 35px;
+      color: #7c8363;
+      cursor: pointer;
+      transition: .2s linear;
+      &:hover{
+        transform: rotate(-180deg);
+      }
+    }
+    .inputGroup {
+      width: calc(100% / 2 - 2rem);
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      flex-direction: column;
+      min-width: 250px;
+      gap: 0.5rem;
+      position: relative;
+      flex-grow: 1;
+      label {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0.5rem;
+        font-size: 16px;
+        background-color: #31473a;
+        pointer-events: none;
+        padding-left: 2px;
+        padding-right: 2px;
+        transition: top 0.1s linear;
+        width: 95%;
+      }
+      input {
+        &:focus {
+          + label {
+            color: #7c8363 !important;
+            top: -4px;
+            width: auto;
+          }
+        }
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 16px;
+        font-family: "Mulish";
+        color: #edf4f2;
+      }
+      input,
+      textarea,
+      select {
+        background-color: transparent;
+        border: 1px solid #7c8363;
+        border-radius: 5px;
+      }
+      input,
+      select {
+        height: 35px;
+      }
+      textarea {
+        min-height: 150px;
+        padding-left: 0.5rem;
+        padding-top: 0.5rem;
+        &::placeholder {
+          color: #edf4f2;
+          font-family: "Mulish";
+          font-size: 16px;
+        }
+      }
+      &:last-child {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        flex-direction: row;
+        button {
+          width: 150px;
+          height: 35px;
+          border-radius: 5px;
+          background-color: #7c8363;
+          color: #edf4f2;
+          font-size: 16px;
+          cursor: pointer;
+          border: 1px solid transparent;
+          &:hover {
+            background-color: transparent;
+            border-color: #7c8363;
+            transition: 0.1s linear;
+          }
+        }
+      }
+    }
+  }
+}
