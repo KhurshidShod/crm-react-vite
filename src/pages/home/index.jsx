@@ -11,13 +11,15 @@ function HomePage() {
   const productsJson = localStorage.getItem("products");
   const [products, setProducts] = useState(JSON.parse(productsJson) || []);
   const [formModalOpen, setFormModalOpen] = useState(false);
-  const [search, setSearch] = useState('')
-  const filteredProducts = products.filter(prod => prod.name.toLowerCase().includes(search.trim().toLowerCase()))
+  const [search, setSearch] = useState("");
+  const filteredProducts = products.filter((prod) =>
+    prod.name.toLowerCase().includes(search.trim().toLowerCase())
+  );
   const [prod, setProd] = useState({
     name: "",
-    price: "",
+    price: Number(),
     category: "",
-    quantity: "",
+    quantity: Number(),
     description: "",
   });
   const closeModal = (e) => {
@@ -50,8 +52,39 @@ function HomePage() {
     });
   });
   const getSearch = (e) => {
-    setSearch(e.target.value)
-  }
+    setSearch(e.target.value);
+  };
+  const deleteProd = (id) => {
+    let newProducts = products.filter((prod) => prod.id !== id);
+    setProducts(newProducts);
+    localStorage.setItem("products", JSON.stringify(newProducts));
+  };
+  const incQuantity = (type, id) => {
+    console.log(type, id);
+    const newProds = products.filter((prod) => prod.id !== id);
+    const prod = products.find((prod) => prod.id === id);
+    if (type === "plus") {
+      setProducts([...newProds, { ...prod, quantity: prod.quantity + 1 }]);
+      localStorage.setItem(
+        "products",
+        JSON.stringify([...newProds, { ...prod, quantity: prod.quantity + 1 }])
+      );
+    } else {
+      setProducts([...newProds, { ...prod, quantity: prod.quantity - 1 }]);
+      if (prod.quantity === 1) {
+        setProducts(newProds);
+        localStorage.setItem("products", JSON.stringify(newProds));
+      } else {
+        localStorage.setItem(
+          "products",
+          JSON.stringify([
+            ...newProds,
+            { ...prod, quantity: prod.quantity - 1 },
+          ])
+        );
+      }
+    }
+  };
   return (
     <Fragment>
       <Header openModal={() => setFormModalOpen(true)} />
@@ -69,9 +102,18 @@ function HomePage() {
               <Filter search={search} getSearch={getSearch} />
             </div>
             <div className={styles.home__wrapper_cards}>
-              {filteredProducts.length ? filteredProducts.map((prod) => (
-                <Card key={prod.id} {...prod} />
-              )) : <h1>No products</h1>}
+              {filteredProducts.length ? (
+                filteredProducts.map((prod) => (
+                  <Card
+                    incQuantity={incQuantity}
+                    deleteProd={() => deleteProd(prod.id)}
+                    key={prod.id}
+                    {...prod}
+                  />
+                ))
+              ) : (
+                <h1>No products</h1>
+              )}
             </div>
           </div>
         </div>

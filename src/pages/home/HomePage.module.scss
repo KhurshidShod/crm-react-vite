@@ -16,11 +16,10 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: stretch;
       flex-direction: row;
       flex-wrap: wrap;
       gap: 2rem;
-      // background-color: red;
     }
     &_header{
       width: 100%;
