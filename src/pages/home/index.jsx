@@ -1,6 +1,6 @@
 import styles from "./HomePage.module.scss";
 import FormModal from "../../components/form";
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
 import Header from "../../components/header";
@@ -12,9 +12,12 @@ function HomePage() {
   const [products, setProducts] = useState(JSON.parse(productsJson) || []);
   const [formModalOpen, setFormModalOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const filteredProducts = products.filter((prod) =>
+  // const [page, setPage] = useState(0)
+  const [selected, setSelected] = useState(null)
+  const filteredProducts = useMemo(() => products.filter((prod) =>
     prod.name.toLowerCase().includes(search.trim().toLowerCase())
-  );
+  ), [products, search]);
+  // const dataForMapping = filteredProducts.splice(0, 8)
   const [prod, setProd] = useState({
     name: "",
     price: Number(),
@@ -22,7 +25,7 @@ function HomePage() {
     quantity: Number(),
     description: "",
   });
-  const closeModal = (e) => {
+  const closeModal = useCallback((e) => {
     e.preventDefault();
     setFormModalOpen(false);
     setProd({
@@ -32,15 +35,21 @@ function HomePage() {
       quantity: "",
       description: "",
     });
-  };
-  const getProd = (e) => {
+  }, []);
+  const getProd = useCallback((e) => {
     setProd({ ...prod, [e.target.id]: e.target.value });
-  };
+  }, [prod]);
   const handleSubmit = useCallback((e) => {
-    let newProducts = [...products, { ...prod, id: v4() }];
-    e.preventDefault();
-    setProducts(newProducts);
-    localStorage.setItem("products", JSON.stringify(newProducts));
+    if(selected === null){
+      let newProducts = [...products, { ...prod, id: v4() }];
+      e.preventDefault();
+      setProducts(newProducts);
+      localStorage.setItem("products", JSON.stringify(newProducts));
+    } else {
+      let newProducts = products.filter(prod => prod.id !== selected)
+      setProducts([...newProducts, prod])
+      localStorage.setItem('products', JSON.stringify([...newProducts, prod]))
+    }
     toast.success("Product added successfully");
     setFormModalOpen(false);
     setProd({
@@ -50,27 +59,26 @@ function HomePage() {
       quantity: "",
       description: "",
     });
-  });
-  const getSearch = (e) => {
+  }, [prod, products]);
+  const getSearch = useCallback((e) => {
     setSearch(e.target.value);
-  };
-  const deleteProd = (id) => {
+  }, []);
+  const deleteProd = useCallback((id) => {
     let newProducts = products.filter((prod) => prod.id !== id);
     setProducts(newProducts);
     localStorage.setItem("products", JSON.stringify(newProducts));
-  };
-  const incQuantity = (type, id) => {
-    console.log(type, id);
+  }, [products]);
+  const changeQuant = useCallback((type, id) => {
     const newProds = products.filter((prod) => prod.id !== id);
     const prod = products.find((prod) => prod.id === id);
     if (type === "plus") {
-      setProducts([...newProds, { ...prod, quantity: prod.quantity + 1 }]);
+      setProducts([{ ...prod, quantity: +prod.quantity + 1 }, ...newProds]);
       localStorage.setItem(
         "products",
-        JSON.stringify([...newProds, { ...prod, quantity: prod.quantity + 1 }])
+        JSON.stringify([{ ...prod, quantity: +prod.quantity + 1 }, ...newProds])
       );
     } else {
-      setProducts([...newProds, { ...prod, quantity: prod.quantity - 1 }]);
+      setProducts([{ ...prod, quantity: prod.quantity - 1 }, ...newProds]);
       if (prod.quantity === 1) {
         setProducts(newProds);
         localStorage.setItem("products", JSON.stringify(newProds));
@@ -78,13 +86,19 @@ function HomePage() {
         localStorage.setItem(
           "products",
           JSON.stringify([
-            ...newProds,
             { ...prod, quantity: prod.quantity - 1 },
+            ...newProds
           ])
         );
       }
     }
-  };
+  }, [products]);
+  const editProd = useCallback(id => {                   
+    const prod = products.find(prod => prod.id === id);
+      setProd(prod)
+      setFormModalOpen(true)
+      setSelected(id)
+  }, [products])
   return (
     <Fragment>
       <Header openModal={() => setFormModalOpen(true)} />
@@ -102,19 +116,35 @@ function HomePage() {
               <Filter search={search} getSearch={getSearch} />
             </div>
             <div className={styles.home__wrapper_cards}>
-              {filteredProducts.length ? (
+              {filteredProducts.length !== 0 ? (
                 filteredProducts.map((prod) => (
                   <Card
-                    incQuantity={incQuantity}
+                    incQuantity={changeQuant}
                     deleteProd={() => deleteProd(prod.id)}
                     key={prod.id}
-                    {...prod}
+                    prod={prod}
+                    editProd={() => editProd(prod.id)}
                   />
                 ))
               ) : (
                 <h1>No products</h1>
               )}
             </div>
+            {/* <div className={styles.home__wrapper_pagination}>
+              <button onClick={() => {
+                setPage(page-8)
+                console.log(page)
+              }}>left</button>
+              {
+                Array(Math.ceil(products.length / 8)).fill(0).map((el, idx) => (
+                  <button key={idx}>{idx+1}</button>
+                ))
+              }
+              <button onClick={() => {
+                setPage(page+8)
+                console.log(page)
+              }}>right</button>
+            </div> */}
           </div>
         </div>
       </section>

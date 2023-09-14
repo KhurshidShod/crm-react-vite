@@ -25,6 +25,7 @@ function LoginPage() {
       toast.error("Invalid user");
     }
   };
+  console.log('LoginPage')
 
   return (
     <section className={styles.login}>

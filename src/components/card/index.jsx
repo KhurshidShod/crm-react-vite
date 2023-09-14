@@ -1,25 +1,27 @@
 import styles from './Card.module.scss'
 import { FaPlus, FaMinus } from 'react-icons/fa6'
 import PropTypes from 'prop-types'
+import { memo } from 'react'
 
-function Card({ id, name, price, category, quantity, description, deleteProd, incQuantity }) {
+function Card({ prod, deleteProd, incQuantity, editProd }) {
+  console.log("Card")
   return (
     <div className={styles.card}>
         <div>
-        <h1>{name}</h1>
-        <p>${price}</p>
+        <h1>{prod.name}</h1>
+        <p>${prod.price * prod.quantity}</p>
         </div>
-        <p>{description}</p>
+        <p>{prod.description}</p>
         <div>
-            <h4>{category}</h4>
+            <h4>{prod.category}</h4>
             <div>
-                <button onClick={() => incQuantity('minus', id)}><FaMinus size={20} /></button>
-                <h3>{quantity}</h3>
-                <button onClick={() => incQuantity('plus', id)}><FaPlus size={20} /></button>
+                <button onClick={() => incQuantity('minus', prod.id)}><FaMinus size={20} /></button>
+                <h3>{prod.quantity}</h3>
+                <button onClick={() => incQuantity('plus', prod.id)}><FaPlus size={20} /></button>
             </div>
         </div>
         <div>
-        <button>Edit</button>
+        <button onClick={editProd}>Edit</button>
         <button onClick={deleteProd}>Delete</button>
         </div>
     </div>
@@ -27,14 +29,12 @@ function Card({ id, name, price, category, quantity, description, deleteProd, in
 }
 
 Card.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  quantity: PropTypes.number,
-  description: PropTypes.string,
   deleteProd: PropTypes.func,
+  editProd: PropTypes.func,
   incQuantity: PropTypes.func,
-
+  prod: PropTypes.object
 }
 
-export default Card
+const memoCard = memo(Card)
+
+export default memoCard

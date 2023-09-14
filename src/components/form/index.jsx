@@ -1,13 +1,16 @@
 import styles from "./Form.module.scss";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import PropTypes from 'prop-types'
+import { memo } from "react";
 
 function FormModal({
   getProd,
   handleSubmit,
-  prod: { name, price, category, description, quantity },
+  prod,
   formModalOpen,
   closeModal,
 }) {
+  console.log('Form')
   return (
     <div
       className={`${styles.formModalWrapper} ${
@@ -21,7 +24,7 @@ function FormModal({
         <div className={styles.inputGroup}>
           <input
             required
-            value={name}
+            value={prod.name}
             autoComplete="off"
             onChange={getProd}
             type="text"
@@ -33,7 +36,7 @@ function FormModal({
         <div className={styles.inputGroup}>
           <input
             required
-            value={price}
+            value={prod.price}
             autoComplete="off"
             onChange={getProd}
             type="number"
@@ -59,7 +62,7 @@ function FormModal({
         <div autoComplete="off" className={styles.inputGroup}>
           <input
             required
-            value={quantity}
+            value={prod.quantity}
             type="number"
             name=""
             onChange={getProd}
@@ -75,7 +78,7 @@ function FormModal({
             id="description"
             cols="30"
             rows="10"
-            value={description}
+            value={prod.description}
             placeholder="Description"
           ></textarea>
         </div>
@@ -87,4 +90,14 @@ function FormModal({
   );
 }
 
-export default FormModal;
+FormModal.propTypes = {
+  getProd: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  prod: PropTypes.object,
+  formModalOpen: PropTypes.bool,
+  closeModal: PropTypes.func
+}
+
+const memoFormModal = memo(FormModal)
+
+export default memoFormModal;

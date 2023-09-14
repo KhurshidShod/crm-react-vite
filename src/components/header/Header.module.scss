@@ -12,6 +12,9 @@ header {
       line-height: 80px;
       color: #edf4f2;
       font-weight: 900;
+      @media (max-width: 550px) {
+        font-size: 20px;
+      }
     }
     div {
       display: flex;
@@ -33,13 +36,16 @@ header {
           transition: 0.1s linear;
           border: 2px solid transparent;
           @media (max-width: 550px) {
-            width: 135px;
+            width: 35px;
           }
           &:hover {
             width: 135px;
             background-color: transparent;
             border-color: #edf4f2;
             color: #edf4f2;
+            @media (max-width: 550px) {
+              width: 35px !important;
+            }
           }
           span {
             margin-left: 6px;

@@ -1,14 +1,18 @@
+import { memo } from 'react'
 import { BsPlusLg } from 'react-icons/bs'
-import styles from './Header.module.scss'
 import { FiLogOut } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
+
+import styles from './Header.module.scss'
 
 function Header({ openModal }) {
   const navigate = useNavigate()
+  console.log('Header')
   return (
     <header>
     <div className="container">
-      <nav>
+      <nav className={styles.nav}>
         <h1>CRM of Products</h1>
         <div>
         <button onClick={openModal}>Add product <span><BsPlusLg size={25} /></span></button>
@@ -23,4 +27,10 @@ function Header({ openModal }) {
   )
 }
 
-export default Header
+Header.propTypes = {
+  openModal: PropTypes.func
+}
+
+const memoHeader = memo(Header)
+
+export default memoHeader
